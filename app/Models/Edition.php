@@ -37,6 +37,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Edition whereSourceId($value)
  * @method static Builder|Edition whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read \App\Models\Plugin $plugin
  */
 class Edition extends Model
 {

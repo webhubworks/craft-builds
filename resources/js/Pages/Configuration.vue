@@ -1,53 +1,57 @@
 <template>
     <Base>
 
-        <h1 class="mb-16 text-3xl font-semibold">New configuration</h1>
+        <div class="bg-white p-8">
 
-        <div v-if="configuration">
-            <ul class="space-y-10 mb-10">
-                <li v-for="plugin in configuration.plugins">
-                    <Plugin :plugin="plugin"
-                            @set-edition="setEditionOnPlugin"
-                            @remove="removePluginFromConfiguration"
-                            class="flex group" />
-                </li>
-            </ul>
-        </div>
+            <h1 class="mb-16 text-3xl font-semibold">New configuration</h1>
 
-        <div class="flex space-x-2">
-            <t-rich-select v-model="pluginToAdd"
-                           class="flex-grow"
-                           value-attribute="handle"
-                           text-attribute="name"
-                           :minimumInputLength="2"
-                           placeholder="Search for plugin"
-                           :select-on-close="true"
-                           :fetch-options="fetchPluginSearchOptions">
-                <template
-                    slot="option"
-                    slot-scope="{ index, isHighlighted, isSelected, className, option, query }">
-                    <div :class="className">
-                        <div class="flex-shrink-0">
-                            <img
-                                class="w-10 h-10"
-                                :src="option.raw.icon_url"
-                                :alt="`Logo ${option.raw.name}`">
+            <div v-if="configuration">
+                <ul class="space-y-10 mb-10">
+                    <li v-for="plugin in configuration.plugins">
+                        <Plugin :plugin="plugin"
+                                @set-edition="setEditionOnPlugin"
+                                @remove="removePluginFromConfiguration"
+                                class="flex group"/>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex space-x-2">
+                <t-rich-select v-model="pluginToAdd"
+                               class="flex-grow"
+                               value-attribute="handle"
+                               text-attribute="name"
+                               :minimumInputLength="2"
+                               placeholder="Search for plugin"
+                               :select-on-close="true"
+                               :fetch-options="fetchPluginSearchOptions">
+                    <template
+                        slot="option"
+                        slot-scope="{ index, isHighlighted, isSelected, className, option, query }">
+                        <div :class="className">
+                            <div class="flex-shrink-0">
+                                <img
+                                    class="w-10 h-10"
+                                    :src="option.raw.icon_url"
+                                    :alt="`Logo ${option.raw.name}`">
+                            </div>
+                            <div class="flex flex-col w-full ml-2 text-gray-800">
+                                <strong>
+                                    {{ option.raw.name }}
+                                    <span v-if="isSelected">(Selected)</span>
+                                </strong>
+                                <span class="text-sm leading-tight text-gray-700">{{ option.raw.short_description }}</span>
+                            </div>
                         </div>
-                        <div class="flex flex-col w-full ml-2 text-gray-800">
-                            <strong>
-                                {{ option.raw.name }}
-                                <span v-if="isSelected">(Selected)</span>
-                            </strong>
-                            <span class="text-sm leading-tight text-gray-700">{{ option.raw.short_description }}</span>
-                        </div>
-                    </div>
-                </template>
-            </t-rich-select>
+                    </template>
+                </t-rich-select>
 
-            <t-button @click.prevent="onAdd">Add</t-button>
+                <t-button @click.prevent="onAdd">Add</t-button>
+            </div>
+
+            <t-table class="mt-8" :data="calculation"></t-table>
+
         </div>
-
-        <t-table class="mt-8" :data="calculation"></t-table>
 
     </Base>
 </template>
@@ -92,20 +96,15 @@ export default {
             });
         },
         addPluginToConfiguration() {
-            this.$inertia.put(route('configuration.add-plugin', {
-                configuration: this.configuration
-            }), {
+            this.$inertia.post(route('configuration.add-plugin', this.configuration), {
                 handle: this.pluginToAdd,
-            })
+            });
         },
         removePluginFromConfiguration(handle) {
-            console.log(handle);
-            return;
             this.$inertia.delete(route('configuration.remove-plugin', {
-                configuration: this.configuration
-            }), {
-                handle: handle,
-            })
+                configuration: this.configuration,
+                plugin: handle,
+            }))
         },
         fetchPluginSearchOptions(query) {
             return window.axios.get(route('search'), {

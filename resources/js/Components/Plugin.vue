@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <div class="flex w-full">
+    <div class="flex">
+
+        <div class="flex w-1/2 xl:w-2/3 flex-shrink-0">
             <div class="flex-shrink-0">
                 <img
-                    class="w-10 h-10"
+                    class="w-12 h-12"
                     :src="plugin.icon_url"
                     :alt="`Logo ${plugin.name}`">
             </div>
@@ -15,11 +16,12 @@
             </div>
         </div>
 
-        <div class="min-w-[235px]">
+        <div class="min-w-[200px]">
+
             <label :for="`${plugin.handle}-edition`" class="font-semibold text-sm text-gray-500">Edition</label>
 
             <div v-if="plugin.editions.length < 2">
-                {{ plugin.editions.find(edition => edition.id == plugin.pivot.edition_id).name }}
+                {{ edition.name }}
             </div>
 
             <t-rich-select :options="plugin.editions"
@@ -31,12 +33,18 @@
                            @change="onEditionSet"
                            :value="plugin.pivot.edition_id"
                            :hide-search-box="true">
+
                 <template slot="arrow"><span></span></template>
+
                 <template slot="label" slot-scope="{ className, option, query }">
-                    <div class="group">
-                        {{ option.text }} <span class="text-blue-500 text-xs group-hover:inline-block hidden hover:underline">Change</span>
+                    <div class="edition-label w-full">
+                        {{ option.text }}
+                        <span class="edition-label__change text-blue-500 text-xs hidden hover:underline">
+                            Change
+                        </span>
                     </div>
                 </template>
+
                 <template slot="option"
                           slot-scope="{ index, isHighlighted, isSelected, className, option, query }">
                     <div class="flex flex-col w-full ml-2 text-gray-800">
@@ -45,14 +53,17 @@
                             <span v-if="isSelected">(Selected)</span>
                         </strong>
                         <span class="text-sm leading-tight text-gray-700">
-                                    {{
-                                option.raw.price ? `${option.raw.price} + ${option.raw.renewal_price}/year` : 'free'
-                            }}
-                                </span>
+                            {{ option.raw.price ? `${option.raw.price} + ${option.raw.renewal_price}/year` : 'free' }}
+                        </span>
                     </div>
-
                 </template>
+
             </t-rich-select>
+        </div>
+
+        <div>
+            <label class="font-semibold text-sm text-gray-500">Price</label>
+            <div class="whitespace-nowrap">{{ edition.price ? `${edition.price} + ${edition.renewal_price}/year` : 'free' }}</div>
         </div>
 
         <div class="min-w-[50px] flex justify-center">
@@ -76,6 +87,20 @@ export default {
         onEditionSet(editionId) {
             this.$emit('set-edition', this.plugin.handle, editionId);
         }
+    },
+
+    computed: {
+        edition() {
+            return this.plugin.editions.find(edition => {
+                return edition.id.toString() === this.plugin.pivot.edition_id.toString();
+            });
+        }
     }
 }
 </script>
+
+<style scoped>
+.edition-label:hover .edition-label__change {
+    display: inline-block;
+}
+</style>

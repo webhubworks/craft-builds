@@ -16,16 +16,17 @@ class ConfigurationPluginController extends Controller
      *
      * @param Request $request
      * @param Configuration $configuration
+     * @param Plugin $plugin
      * @return RedirectResponse
      */
     public function store(Request $request, Configuration $configuration): RedirectResponse
     {
         Validator::make($request->all(), [
-            'handle' => 'required|string|exists:plugins,handle',
+            'handle' => 'required|string',
         ]);
 
         /** @var Plugin $plugin */
-        $plugin = Plugin::whereHandle($request->handle)->with(['editions'])->firstOrFail();
+        $plugin = Plugin::whereHandle($request->handle)->with(['editions'])->first();
 
         $configuration->plugins()->attach(
             $plugin, [
@@ -44,16 +45,11 @@ class ConfigurationPluginController extends Controller
      *
      * @param Request $request
      * @param Configuration $configuration
+     * @param Plugin $plugin
      * @return RedirectResponse
      */
-    public function destroy(Request $request, Configuration $configuration): RedirectResponse
+    public function destroy(Request $request, Configuration $configuration, Plugin $plugin): RedirectResponse
     {
-        Validator::make($request->all(), [
-            'handle' => 'required|string|exists:plugins,handle',
-        ]);
-
-        /** @var Plugin $plugin */
-        $plugin = Plugin::whereHandle($request->handle)->with(['editions'])->firstOrFail();
 
         $configuration->plugins()->detach($plugin);
 

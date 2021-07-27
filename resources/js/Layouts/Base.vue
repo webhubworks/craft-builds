@@ -3,7 +3,7 @@
 
         <slot></slot>
 
-        <t-alert variant="success" :show="!!message.length" :timeout="2000">
+        <t-alert variant="success" :show="!!message.length" :timeout="2000" @hidden="clearMessage">
             {{ message }}
         </t-alert>
 
@@ -16,10 +16,12 @@ export default {
         message() {
             return this.$page.props.message || '';
         }
+    },
+
+    methods: {
+        clearMessage() {
+            this.$page.props.message = '';
+        }
     }
 }
 </script>
-
-<style scoped>
-
-</style>

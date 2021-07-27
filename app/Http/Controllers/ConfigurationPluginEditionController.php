@@ -20,10 +20,20 @@ class ConfigurationPluginEditionController extends Controller
     public function update(Request $request, Configuration $configuration, Plugin $plugin): RedirectResponse
     {
         Validator::make($request->all(), [
-            'edition' => 'required|exists:editions',
+            'edition' => 'required',
         ]);
 
+        if (! $plugin->editions()->whereId($request->edition)->exists()) {
+            throw new \Exception("Invalid edition");
+        }
 
+        $configuration->plugins()->detach($plugin);
+
+        $configuration->plugins()->attach(
+            $plugin, [
+                'edition_id' => $request->edition,
+            ]
+        );
 
         return Redirect::route('configuration', ['configuration' => $configuration])
             ->with([
