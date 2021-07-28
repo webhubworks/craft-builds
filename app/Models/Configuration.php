@@ -31,7 +31,9 @@ class Configuration extends Model
 
     public function plugins(): BelongsToMany
     {
-        return $this->belongsToMany(Plugin::class)->withPivot('edition_id');
+        return $this->belongsToMany(Plugin::class)
+            ->using(ConfigurationPlugin::class)
+            ->withPivot('edition_id');
     }
 
     protected static function boot()

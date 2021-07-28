@@ -66,9 +66,19 @@ class Edition extends Model
         return $this->belongsTo(Plugin::class);
     }
 
+    public function getRawPriceAttribute(): ?int
+    {
+        return $this->attributes['price'] ? (int) $this->attributes['price'] : null;
+    }
+
     public function getPriceAttribute($price): ?string
     {
         return $price ? Money::USD($price)->format() : null;
+    }
+
+    public function getRawRenewalPriceAttribute($renewalPrice): ?int
+    {
+        return $this->attributes['renewal_price'] ? (int) $this->attributes['renewal_price'] : null;
     }
 
     public function getRenewalPriceAttribute($renewalPrice): ?string

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ConfigurationPricing;
 use App\Models\Configuration;
+use App\Models\ConfigurationPlugin;
 use App\Models\Plugin;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,11 +18,11 @@ class ConfigurationController extends Controller
 
     public function show(Request $request, string $uuid): Response
     {
-
         $configuration = Configuration::whereUuid($uuid)
             ->with(['plugins.editions'])
             ->firstOrFail();
 
+ConfigurationPricing::for($configuration);
         return Inertia::render('Configuration', [
             'configuration' => $configuration,
             'calculation' => [
