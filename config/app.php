@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\CurrencyConverterService;
+
 return [
 
     /*
@@ -174,6 +176,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        CurrencyConverterService::class,
 
     ],
 
@@ -229,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'CurrencyConverter' => App\Facades\CurrencyConverter::class,
     ],
 
 ];

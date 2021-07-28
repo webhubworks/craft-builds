@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Money\Currency;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -24,6 +25,8 @@ use Ramsey\Uuid\Uuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereUuid($value)
  * @mixin \Eloquent
+ * @property Currency $currency
+ * @method static \Illuminate\Database\Eloquent\Builder|Configuration whereCurrency($value)
  */
 class Configuration extends Model
 {
@@ -42,6 +45,7 @@ class Configuration extends Model
 
         static::creating(function (Configuration $configuration) {
             $configuration->setAttribute('uuid', Uuid::uuid4());
+            $configuration->setAttribute('currency', 'USD');
         });
 
         static::created(function(Configuration $configuration) {
@@ -52,5 +56,15 @@ class Configuration extends Model
                 ]
             );
         });
+    }
+
+    public function setCurrencyAttribute($currency): string
+    {
+        return strtoupper($currency);
+    }
+
+    public function getCurrencyAttribute($currency): Currency
+    {
+        return new Currency($currency);
     }
 }

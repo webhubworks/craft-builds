@@ -1,11 +1,13 @@
 <template>
-    <div class="container mx-auto mt-16">
+    <div class="container mx-auto mt-16 max-w-6xl">
 
         <slot></slot>
 
-        <t-alert variant="success" :show="!!message.length" :timeout="2000" @hidden="clearMessage">
-            {{ message }}
-        </t-alert>
+        <div class="fixed right-[1rem] bottom-[1rem]">
+            <t-alert variant="success" :show="!!message.length" :timeout="2000" @hidden="clearMessage">
+                {{ message }}
+            </t-alert>
+        </div>
 
     </div>
 </template>

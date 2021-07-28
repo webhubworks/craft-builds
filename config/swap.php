@@ -21,7 +21,7 @@ return [
     | * cache_ttl: The cache ttl in seconds.
     */
     'options' => [
-        'cache_ttl' => 3600,
+        'cache_ttl' => 3600 * 24,
     ],
 
     /*
@@ -82,7 +82,12 @@ return [
     |
     */
     'services' => [
-        'abstract_api' => ['api_key' => env('ABSTRACT_API_KEY')],
+        'abstract_api' => [
+            'api_key' => env('ABSTRACT_API_KEY'),
+        ],
+        'open_exchange_rates' => [
+            'app_id' => env('OPEN_EXCHANGE_RATES_APP_ID'),
+        ],
     ],
 
     /*

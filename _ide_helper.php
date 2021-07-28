@@ -15620,7 +15620,28 @@
      
 }
 
-        namespace Barryvdh\Debugbar { 
+        namespace App\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class CurrencyConverter {
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function convert($money, $toCurrency)
+        {
+                        /** @var \App\CurrencyConverter $instance */
+                        return $instance->convert($money, $toCurrency);
+        }
+         
+    }
+     
+}
+
+    namespace Barryvdh\Debugbar { 
             /**
      * 
      *
@@ -16443,6 +16464,45 @@
         {
                         /** @var \Facade\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
+        }
+         
+    }
+     
+}
+
+    namespace Swap\Laravel\Facades { 
+            /**
+     * Facade for Swap.
+     *
+     * @author Florian Voutzinos <florian@voutzinos.com>
+     */ 
+        class Swap {
+                    /**
+         * Quotes a currency pair.
+         *
+         * @param string $currencyPair The currency pair like "EUR/USD"
+         * @param array $options An array of query options
+         * @return \Exchanger\Contract\ExchangeRate 
+         * @static 
+         */ 
+        public static function latest($currencyPair, $options = [])
+        {
+                        /** @var \Swap\Swap $instance */
+                        return $instance->latest($currencyPair, $options);
+        }
+                    /**
+         * Quotes a currency pair.
+         *
+         * @param string $currencyPair The currency pair like "EUR/USD"
+         * @param \DateTimeInterface $date An optional date for historical rates
+         * @param array $options An array of query options
+         * @return \Exchanger\Contract\ExchangeRate 
+         * @static 
+         */ 
+        public static function historical($currencyPair, $date, $options = [])
+        {
+                        /** @var \Swap\Swap $instance */
+                        return $instance->historical($currencyPair, $date, $options);
         }
          
     }
@@ -20231,8 +20291,10 @@ namespace  {
             class URL extends \Illuminate\Support\Facades\URL {}
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
+            class CurrencyConverter extends \App\Facades\CurrencyConverter {}
             class Debugbar extends \Barryvdh\Debugbar\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
+            class Swap extends \Swap\Laravel\Facades\Swap {}
             class LaravelLocalization extends \Mcamara\LaravelLocalization\Facades\LaravelLocalization {}
      
 }

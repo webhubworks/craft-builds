@@ -22,15 +22,10 @@ class ConfigurationController extends Controller
             ->with(['plugins.editions'])
             ->firstOrFail();
 
-ConfigurationPricing::for($configuration);
         return Inertia::render('Configuration', [
             'configuration' => $configuration,
-            'calculation' => [
-                'initialCost' => 500,
-                'renewalCost' => 100,
-                'costForTwoYears' => 600,
-                'costForThreeYears' => 700,
-            ]
+            'calculation' => ConfigurationPricing::for($configuration),
+            'currencies' => config('money.currencies.iso'),
         ]);
     }
 

@@ -16,6 +16,7 @@ class CreateConfigurationsTable extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('currency');
             $table->timestamps();
         });
     }

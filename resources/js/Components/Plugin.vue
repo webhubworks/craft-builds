@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
 
-        <div class="flex w-1/2 xl:w-2/3 flex-shrink-0">
+        <div class="flex w-1/2 xl:w-2/3">
             <div class="flex-shrink-0">
                 <img
                     class="w-12 h-12"

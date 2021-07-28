@@ -5,11 +5,20 @@ namespace App;
 use App\Models\Configuration;
 use App\Models\ConfigurationPlugin;
 use Cknow\Money\Money;
-use Swap\Laravel\Facades\Swap;
+use Illuminate\Support\Collection;
 
 class ConfigurationPricing
 {
     private Configuration $configuration;
+
+    private Collection $configurationPlugins;
+
+    public string $initial;
+    public string $renewal;
+    public string $biAnnual;
+    public string $biAnnualPerMonth;
+    public string $triAnnual;
+    public string $triAnnualPerMonth;
 
     private function __construct(Configuration $configuration)
     {
@@ -18,40 +27,43 @@ class ConfigurationPricing
             'plugins.pivot.plugin',
         ]);
 
-        $configurationPlugins = $this->configuration->plugins->pluck('pivot');
+        $this->configurationPlugins = $this->configuration->plugins->pluck('pivot');
 
-        $initialCost = Money::USD(
-            $configurationPlugins->reduce(function($carry, ConfigurationPlugin $item) {
-                return $carry + (int) $item->edition->raw_price;
-            }, 0)
-        );
-
-        $renewalCost = Money::USD(
-            $configurationPlugins->reduce(function($carry, ConfigurationPlugin $item) {
-                return $carry + (int) $item->edition->raw_renewal_price;
-            }, 0)
-        );
-
-        $biAnnualCost = $initialCost->add($renewalCost);
-
-        $biAnnualCostPerMonth = $biAnnualCost->divide(24);
-
-        $triAnnualCost = $biAnnualCost->add($renewalCost);
-
-        $triAnnualCostPerMonth = $triAnnualCost->divide(36);
-dd(Swap::latest('EUR/USD'));
-        dd(
-            $initialCost->format(),
-            $renewalCost->format(),
-            $biAnnualCost->format(),
-            $biAnnualCostPerMonth->format(),
-            $triAnnualCost->format(),
-            $triAnnualCostPerMonth->format(),
-        );
+        $this->calculate();
     }
 
     public static function for(Configuration $configuration): static
     {
         return new static($configuration);
+    }
+
+    private function calculate()
+    {
+        $initial = Money::USD(
+            $this->configurationPlugins->reduce(function ($carry, ConfigurationPlugin $item) {
+                return $carry + (int)$item->edition->raw_price;
+            }, 0)
+        );
+
+        $renewal = Money::USD(
+            $this->configurationPlugins->reduce(function ($carry, ConfigurationPlugin $item) {
+                return $carry + (int)$item->edition->raw_renewal_price;
+            }, 0)
+        );
+
+        $biAnnual = $initial->add($renewal);
+
+        $biAnnualPerMonth = $biAnnual->divide(24);
+
+        $triAnnual = $biAnnual->add($renewal);
+
+        $triAnnualPerMonth = $triAnnual->divide(36);
+
+        $this->initial = \App\Facades\CurrencyConverter::convert($initial, $this->configuration->currency)->format();
+        $this->renewal = \App\Facades\CurrencyConverter::convert($renewal, $this->configuration->currency)->format();
+        $this->biAnnual = \App\Facades\CurrencyConverter::convert($biAnnual, $this->configuration->currency)->format();
+        $this->biAnnualPerMonth = \App\Facades\CurrencyConverter::convert($biAnnualPerMonth, $this->configuration->currency)->format();
+        $this->triAnnual = \App\Facades\CurrencyConverter::convert($triAnnual, $this->configuration->currency)->format();
+        $this->triAnnualPerMonth = \App\Facades\CurrencyConverter::convert($triAnnualPerMonth, $this->configuration->currency)->format();
     }
 }

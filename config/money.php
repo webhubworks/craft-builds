@@ -9,7 +9,12 @@ return [
     'locale' => 'en_US',
     'defaultCurrency' => 'USD',
     'currencies' => [
-        'iso' => 'all',
+        'iso' => [
+            'USD',
+            'EUR',
+            'CAD',
+            'GBP',
+        ],
         'bitcoin' => [],
         'custom' => [],
     ]

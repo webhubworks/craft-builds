@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Facades\CurrencyConverter;
 use Cknow\Money\Money;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,6 +39,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Edition whereUpdatedAt($value)
  * @mixin Eloquent
  * @property-read \App\Models\Plugin $plugin
+ * @property-read int|null $raw_price
+ * @property-read int|null $raw_renewal_price
  */
 class Edition extends Model
 {
@@ -73,7 +76,13 @@ class Edition extends Model
 
     public function getPriceAttribute($price): ?string
     {
-        return $price ? Money::USD($price)->format() : null;
+        if (!$price) {
+            return null;
+        }
+
+        return CurrencyConverter::convert(
+            Money::USD($price)
+        )->format();
     }
 
     public function getRawRenewalPriceAttribute($renewalPrice): ?int
@@ -83,6 +92,12 @@ class Edition extends Model
 
     public function getRenewalPriceAttribute($renewalPrice): ?string
     {
-        return $renewalPrice ? Money::USD($renewalPrice)->format() : null;
+        if (!$renewalPrice) {
+            return null;
+        }
+
+        return CurrencyConverter::convert(
+            Money::USD($renewalPrice)
+        )->format();
     }
 }
