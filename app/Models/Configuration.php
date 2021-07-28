@@ -45,7 +45,6 @@ class Configuration extends Model
 
         static::creating(function (Configuration $configuration) {
             $configuration->setAttribute('uuid', Uuid::uuid4());
-            $configuration->setAttribute('currency', 'USD');
         });
 
         static::created(function(Configuration $configuration) {

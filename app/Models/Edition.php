@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Money\Currency;
 
 /**
  * App\Models\Edition
@@ -71,7 +72,7 @@ class Edition extends Model
 
     public function getRawPriceAttribute(): ?int
     {
-        return $this->attributes['price'] ? (int) $this->attributes['price'] : null;
+        return $this->attributes['price'] ? (int)$this->attributes['price'] : null;
     }
 
     public function getPriceAttribute($price): ?string
@@ -80,14 +81,17 @@ class Edition extends Model
             return null;
         }
 
-        return CurrencyConverter::convert(
-            Money::USD($price)
-        )->format();
+        return collect(config('money.currencies.iso'))->transform(function ($code) use ($price) {
+            return CurrencyConverter::convert(
+                Money::USD($price),
+                new Currency($code),
+            )->format();
+        });
     }
 
     public function getRawRenewalPriceAttribute($renewalPrice): ?int
     {
-        return $this->attributes['renewal_price'] ? (int) $this->attributes['renewal_price'] : null;
+        return $this->attributes['renewal_price'] ? (int)$this->attributes['renewal_price'] : null;
     }
 
     public function getRenewalPriceAttribute($renewalPrice): ?string
@@ -96,8 +100,11 @@ class Edition extends Model
             return null;
         }
 
-        return CurrencyConverter::convert(
-            Money::USD($renewalPrice)
-        )->format();
+        return collect(config('money.currencies.iso'))->transform(function ($code) use ($renewalPrice) {
+            return CurrencyConverter::convert(
+                Money::USD($renewalPrice),
+                new Currency($code),
+            )->format();
+        });
     }
 }
