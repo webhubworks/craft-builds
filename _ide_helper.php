@@ -15631,10 +15631,10 @@
          *
          * @static 
          */ 
-        public static function convert($money, $toCurrency)
+        public static function convert($money)
         {
                         /** @var \App\CurrencyConverter $instance */
-                        return $instance->convert($money, $toCurrency);
+                        return $instance->convert($money);
         }
          
     }

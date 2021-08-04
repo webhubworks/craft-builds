@@ -17,9 +17,7 @@ class CurrencyController extends Controller
             'currency' => ['required', 'string', Rule::in(config('money.currencies.iso'))],
         ]);
 
-        $configuration->forceFill([
-            'currency' => $request->currency,
-        ])->save();
+        \Config::set();
 
         return Redirect::route('configuration', ['configuration' => $configuration])
             ->with([

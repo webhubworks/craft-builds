@@ -56,14 +56,4 @@ class Configuration extends Model
             );
         });
     }
-
-    public function setCurrencyAttribute($currency): string
-    {
-        return strtoupper($currency);
-    }
-
-    public function getCurrencyAttribute($currency): Currency
-    {
-        return new Currency($currency);
-    }
 }

@@ -26,18 +26,23 @@ Route::prefix('/configurations')->group(function () {
         ->name('configuration.store');
 
     Route::post('/{configuration:uuid}', [ConfigurationPluginController::class, 'store'])
-        ->name('configuration.add-plugin');
+        ->name('configuration.add-plugin')
+        ->whereUuid('configuration');
 
-    Route::get('/{configuration:uuid}', [ConfigurationController::class, 'show'])
-        ->name('configuration');
+    Route::get('/{configuration:uuid}/{currency?}', [ConfigurationController::class, 'show'])
+        ->name('configuration')
+        ->whereUuid('configuration');
 
     Route::put('/{configuration:uuid}/currency', [CurrencyController::class, 'update'])
-        ->name('configuration.set-currency');
+        ->name('configuration.set-currency')
+        ->whereUuid('configuration');
 
     Route::delete('/{configuration:uuid}/{plugin:handle}', [ConfigurationPluginController::class, 'destroy'])
-        ->name('configuration.remove-plugin');
+        ->name('configuration.remove-plugin')
+        ->whereUuid('configuration');
 
     Route::put('/{configuration:uuid}/{plugin:handle}', [ConfigurationPluginEditionController::class, 'update'])
-        ->name('configuration.set-edition');
+        ->name('configuration.set-edition')
+        ->whereUuid('configuration');
 
 });

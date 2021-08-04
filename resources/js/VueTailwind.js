@@ -5,10 +5,14 @@ import TAlert from "vue-tailwind/dist/t-alert";
 import TTable from "vue-tailwind/dist/t-table";
 import TCard from "vue-tailwind/dist/t-card";
 import TDropdown from "vue-tailwind/dist/t-dropdown";
+import TModal from "vue-tailwind/dist/t-modal";
 
 export default {
     't-dropdown': {
         component: TDropdown,
+    },
+    't-modal': {
+        component: TModal,
     },
     't-rich-select': {
         component: TRichSelect,

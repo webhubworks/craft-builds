@@ -59,11 +59,11 @@ class ConfigurationPricing
 
         $triAnnualPerMonth = $triAnnual->divide(36);
 
-        $this->initial = \App\Facades\CurrencyConverter::convert($initial, $this->configuration->currency)->format();
-        $this->renewal = \App\Facades\CurrencyConverter::convert($renewal, $this->configuration->currency)->format();
-        $this->biAnnual = \App\Facades\CurrencyConverter::convert($biAnnual, $this->configuration->currency)->format();
-        $this->biAnnualPerMonth = \App\Facades\CurrencyConverter::convert($biAnnualPerMonth, $this->configuration->currency)->format();
-        $this->triAnnual = \App\Facades\CurrencyConverter::convert($triAnnual, $this->configuration->currency)->format();
-        $this->triAnnualPerMonth = \App\Facades\CurrencyConverter::convert($triAnnualPerMonth, $this->configuration->currency)->format();
+        $this->initial = \App\Facades\CurrencyConverter::convert($initial)->format();
+        $this->renewal = \App\Facades\CurrencyConverter::convert($renewal)->format();
+        $this->biAnnual = \App\Facades\CurrencyConverter::convert($biAnnual)->format();
+        $this->biAnnualPerMonth = \App\Facades\CurrencyConverter::convert($biAnnualPerMonth)->format();
+        $this->triAnnual = \App\Facades\CurrencyConverter::convert($triAnnual)->format();
+        $this->triAnnualPerMonth = \App\Facades\CurrencyConverter::convert($triAnnualPerMonth)->format();
     }
 }

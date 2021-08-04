@@ -17,8 +17,10 @@ class CurrencyConverter
         $this->converter = new Converter(new ISOCurrencies(), new SwapExchange(resolve('swap')));
     }
 
-    public function convert(Money $money, Currency $toCurrency): Money
+    public function convert(Money $money): Money
     {
+        $toCurrency = new Currency(config('app.currency'));
+
         if ($money->getCurrency()->equals($toCurrency)) {
             return $money;
         }

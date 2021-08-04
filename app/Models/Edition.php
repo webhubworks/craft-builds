@@ -72,7 +72,7 @@ class Edition extends Model
 
     public function getRawPriceAttribute(): ?int
     {
-        return $this->attributes['price'] ? (int)$this->attributes['price'] : null;
+        return $this->attributes['price'] ? (int) $this->attributes['price'] : null;
     }
 
     public function getPriceAttribute($price): ?string
@@ -81,17 +81,14 @@ class Edition extends Model
             return null;
         }
 
-        return collect(config('money.currencies.iso'))->transform(function ($code) use ($price) {
-            return CurrencyConverter::convert(
-                Money::USD($price),
-                new Currency($code),
-            )->format();
-        });
+        return CurrencyConverter::convert(
+            Money::USD($price)
+        )->format();
     }
 
     public function getRawRenewalPriceAttribute($renewalPrice): ?int
     {
-        return $this->attributes['renewal_price'] ? (int)$this->attributes['renewal_price'] : null;
+        return $this->attributes['renewal_price'] ? (int) $this->attributes['renewal_price'] : null;
     }
 
     public function getRenewalPriceAttribute($renewalPrice): ?string
@@ -100,11 +97,8 @@ class Edition extends Model
             return null;
         }
 
-        return collect(config('money.currencies.iso'))->transform(function ($code) use ($renewalPrice) {
-            return CurrencyConverter::convert(
-                Money::USD($renewalPrice),
-                new Currency($code),
-            )->format();
-        });
+        return CurrencyConverter::convert(
+            Money::USD($renewalPrice)
+        )->format();
     }
 }

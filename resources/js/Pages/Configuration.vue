@@ -7,7 +7,7 @@
 
                 <div class="flex justify-between">
                     <h1 class="mb-12 text-3xl font-semibold">New configuration</h1>
-                    <CurrencySelect @change="setCurrency" :selected-currency="configuration.currency"/>
+                    <ConfigurationSettings @change="setCurrency"/>
                 </div>
 
                 <div v-if="configuration">
@@ -104,11 +104,11 @@
 <script>
 import Base from "../Layouts/Base";
 import Plugin from "../Components/Plugin";
-import CurrencySelect from "../Components/CurrencySelect";
+import ConfigurationSettings from "../Components/ConfigurationSettings";
 import Tooltip from "../Components/Tooltip";
 
 export default {
-    components: {Tooltip, CurrencySelect, Plugin, Base},
+    components: {Tooltip, ConfigurationSettings, Plugin, Base},
 
     props: {
         configuration: Object,
@@ -146,9 +146,10 @@ export default {
             }))
         },
         setCurrency(currency) {
-            this.$inertia.put(route('configuration.set-currency', this.configuration), {
-                currency,
-            });
+            this.$inertia.visit(route('configuration', {
+                configuration: this.configuration,
+                currency: currency,
+            }));
         },
         fetchPluginSearchOptions(query) {
             return window.axios.get(route('search'), {
