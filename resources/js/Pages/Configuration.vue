@@ -6,8 +6,10 @@
             <t-card>
 
                 <div class="flex justify-between">
-                    <h1 class="mb-12 text-3xl font-semibold">New configuration</h1>
-                    <ConfigurationSettings @change="setCurrency"/>
+                    <h1 class="mb-12 text-3xl font-semibold">New build</h1>
+                    <ConfigurationSettings
+                        @currency-change="setCurrency"
+                        @locale-change="setLocale"/>
                 </div>
 
                 <div v-if="configuration">
@@ -150,6 +152,9 @@ export default {
                 configuration: this.configuration,
                 currency: currency,
             }));
+        },
+        setLocale(locale) {
+            this.$inertia.post('/lll', {locale});
         },
         fetchPluginSearchOptions(query) {
             return window.axios.get(route('search'), {

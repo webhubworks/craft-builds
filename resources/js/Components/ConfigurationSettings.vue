@@ -50,7 +50,7 @@
         <t-modal header="Select currency" :value="currencyModalOpen">
             <button
                 v-for="currency in currencies"
-                @click.prevent="onChange(currency)"
+                @click.prevent="onCurrencyChange(currency)"
                 class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:pointer-events-none"
                 :class="{'bg-gray-50': selectedCurrency === currency}"
                 role="menuitem"
@@ -66,7 +66,7 @@
         <t-modal header="Select locale" :value="localeModalOpen">
             <button
                 v-for="locale in Object.keys(locales)"
-                @click.prevent="onChange(locale)"
+                @click.prevent="onLocaleChange(locale)"
                 class="block w-full px-4 py-2 text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:pointer-events-none"
                 :class="{'bg-gray-50': selectedLocale === locale}"
                 role="menuitem"
@@ -108,9 +108,12 @@ export default {
     },
 
     methods: {
-        onChange(currency) {
-            this.$emit('change', currency);
-        }
+        onCurrencyChange(currency) {
+            this.$emit('currency-change', currency);
+        },
+        onLocaleChange(locale) {
+            this.$emit('locale-change', locale);
+        },
     }
 }
 </script>
