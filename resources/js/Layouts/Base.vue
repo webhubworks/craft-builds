@@ -1,7 +1,8 @@
 <template>
-    <div class="container mx-auto mt-16 max-w-6xl">
-
-        <slot></slot>
+    <div>
+        <div class="container xl:max-w-6xl">
+            <slot></slot>
+        </div>
 
         <div class="fixed right-[1rem] bottom-[1rem]">
             <t-alert variant="success" :show="!!message.length" :timeout="2000" @hidden="clearMessage">

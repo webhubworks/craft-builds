@@ -29,11 +29,10 @@ export default {
         props: {
             classes: {
                 wrapper: 'border rounded shadow-sm bg-white border-gray-100',
-                body: 'p-12',
+                body: 'p-4 lg:p-12',
                 header: 'border-b border-gray-100 p-3 rounded-t',
                 footer: 'border-gray-100 border-t p-3 rounded-b',
             }
-
         }
     },
     't-table': {
@@ -77,8 +76,25 @@ export default {
     't-button': {
         component: TButton,
         props: {
-            // classes: 'block px-4 py-2 text-white transition duration-100 ease-in-out bg-blue-500 border border-transparent rounded shadow-sm hover:bg-blue-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50  disabled:opacity-50 disabled:cursor-not-allowed',
-            // ...More settings
+            fixedClasses: 'rounded block font-medium border border-transparent  transition duration-100 ease-in-out  disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-primary focus:outline-none focus:ring-opacity-50',
+            classes: 'px-4 py-2 bg-primary hover:bg-black text-black hover:text-primary',
+            variants: {
+                big: 'px-6 py-3 text-2xl font-medium bg-primary hover:bg-black text-black hover:text-primary',
+                text: 'bg-transparent hover:bg-transparent hover:text-black hover:underline'
+            }
+        }
+    },
+    't-link': {
+        component: TButton,
+        props: {
+            tagName: 'a',
+            fixedClasses: 'rounded block font-medium border border-transparent  transition duration-100 ease-in-out  disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-primary focus:outline-none focus:ring-opacity-50',
+            classes: 'px-4 py-2 bg-primary hover:bg-black text-black hover:text-primary font-medium',
+            variants: {
+                big: 'px-6 py-3 text-2xl font-medium bg-primary hover:bg-black text-black hover:text-primary',
+                text: 'bg-transparent hover:bg-transparent hover:text-black hover:underline',
+                muted: 'bg-transparent hover:bg-transparent text-black opacity-60 hover:opacity-100 text-hover:text-black hover:underline',
+            }
         }
     },
 }

@@ -8,10 +8,22 @@ module.exports = {
     mode: 'jit',
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            colors:{
+                body: '#EBEBEB',
+                black: '#121212',
+                primary: '#F9FF00',
+                muted: '#EBEBEB'
+            },
+        },
+        container: {
+            center: true,
+        },
     },
     variants: {
         extend: {
+            textColor: ['group-hover'],
+            backgroundColor: ['group-hover'],
             opacity: ['disabled'],
             cursor: ['disabled'],
         },

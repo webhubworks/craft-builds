@@ -14,6 +14,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::get('/', fn () => Inertia::render('Home'));
 
+    Route::inertia('/imprint', 'Imprint');
+    Route::inertia('/data-privacy', 'DataPrivacy');
+
     Route::prefix('/builds')->group(function () {
 
         Route::post('/', [ConfigurationController::class, 'store'])

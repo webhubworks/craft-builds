@@ -1,7 +1,8 @@
 <template>
-    <div class="flex">
+    <div class="lg:flex justify-between lg:space-x-4">
 
-        <div class="flex w-1/2 xl:w-2/3">
+        <div class="w-full lg:w-1/2 xl:w-1/3">
+            <div class="flex w-full">
             <div class="flex-shrink-0">
                 <img
                     class="w-12 h-12"
@@ -15,61 +16,73 @@
                 <span class="text-sm leading-tight text-gray-700">{{ plugin.short_description }}</span>
             </div>
         </div>
+        </div>
 
-        <div class="min-w-[200px]">
+        <div class="ml-16 lg:ml-0 lg:w-1/2 xl:w-1/3">
 
-            <label :for="`${plugin.handle}-edition`" class="font-semibold text-sm text-gray-500">Edition</label>
+            <div class="flex justify-between">
 
-            <div v-if="plugin.editions.length < 2">
-                {{ edition.name }}
-            </div>
+                <div class="w-full md:w-1/2">
 
-            <t-rich-select :options="plugin.editions"
-                           v-if="plugin.editions.length > 1"
-                           variant="minimal"
-                           :id="`${plugin.handle}-edition`"
-                           value-attribute="id"
-                           text-attribute="name"
-                           @change="onEditionSet"
-                           :value="plugin.pivot.edition_id"
-                           :hide-search-box="true">
+                    <label :for="`${plugin.handle}-edition`"
+                           class="font-semibold text-sm text-gray-500">Edition</label>
 
-                <template slot="arrow"><span></span></template>
+                    <div v-if="plugin.editions.length < 2">
+                        {{ edition.name }}
+                    </div>
 
-                <template slot="label" slot-scope="{ className, option, query }">
-                    <div class="edition-label w-full">
-                        {{ option.text }}
-                        <span class="edition-label__change text-blue-500 text-xs hidden hover:underline">
+                    <t-rich-select :options="plugin.editions"
+                                   v-if="plugin.editions.length > 1"
+                                   variant="minimal"
+                                   :id="`${plugin.handle}-edition`"
+                                   value-attribute="id"
+                                   text-attribute="name"
+                                   @change="onEditionSet"
+                                   :value="plugin.pivot.edition_id"
+                                   :hide-search-box="true">
+
+                        <template slot="arrow"><span></span></template>
+
+                        <template slot="label" slot-scope="{ className, option, query }">
+                            <div class="edition-label w-full">
+                                {{ option.text }}
+                                <span class="edition-label__change text-blue-500 text-xs hidden hover:underline">
                             Change
                         </span>
-                    </div>
-                </template>
+                            </div>
+                        </template>
 
-                <template slot="option"
-                          slot-scope="{ index, isHighlighted, isSelected, className, option, query }">
-                    <div class="flex flex-col w-full ml-2 text-gray-800">
-                        <strong>
-                            {{ option.raw.name }}
-                            <span v-if="isSelected">(Selected)</span>
-                        </strong>
-                        <span class="text-sm leading-tight text-gray-700">
+                        <template slot="option"
+                                  slot-scope="{ index, isHighlighted, isSelected, className, option, query }">
+                            <div class="flex flex-col w-full ml-2 text-gray-800">
+                                <strong>
+                                    {{ option.raw.name }}
+                                    <span v-if="isSelected">(Selected)</span>
+                                </strong>
+                                <span class="text-sm leading-tight text-gray-700">
                             {{ option.raw.price ? `${option.raw.price} + ${option.raw.renewal_price}/year` : 'free' }}
                         </span>
+                            </div>
+                        </template>
+
+                    </t-rich-select>
+                </div>
+
+
+                <div class="w-full md:w-1/2">
+                    <label class="font-semibold text-sm text-gray-500">Price</label>
+                    <div class="whitespace-nowrap">
+                        {{ edition.price ? `${edition.price} + ${edition.renewal_price}/year` : 'free' }}
                     </div>
-                </template>
+                </div>
 
-            </t-rich-select>
+
+            </div>
         </div>
-
-        <div>
-            <label class="font-semibold text-sm text-gray-500">Price</label>
-            <div class="whitespace-nowrap">{{ edition.price ? `${edition.price} + ${edition.renewal_price}/year` : 'free' }}</div>
-        </div>
-
-        <div class="min-w-[50px] flex justify-center">
+        <div class="flex justify-center">
             <t-button @click.prevent="$emit('remove', plugin.handle)"
                       title="Remove plugin from configuration"
-                      class="text-2xl w-full text-gray-400 group-hover:block hidden"
+                      class="text-2xl w-full text-gray-400 block opacity-25 group-hover:opacity-100 "
                       variant="secondary"
             >&times;
             </t-button>
