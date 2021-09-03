@@ -9,7 +9,10 @@ module.exports = {
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {
-            colors:{
+            fontFamily: {
+                'sans': ['Inter', 'Helvetica', 'Arial', 'sans-serif']
+            },
+            colors: {
                 body: '#EBEBEB',
                 black: '#121212',
                 primary: '#F9FF00',
