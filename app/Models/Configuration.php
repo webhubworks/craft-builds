@@ -55,14 +55,5 @@ class Configuration extends Model
                 ]
             );
         });
-
-        static::created(function(Configuration $configuration) {
-            $notifer = Plugin::whereHandle('notifier')->with('editions')->first();
-            $configuration->plugins()->attach(
-                $notifer, [
-                    'edition_id' => $notifer->editions->firstWhere('handle', 'standard')->id,
-                ]
-            );
-        });
     }
 }

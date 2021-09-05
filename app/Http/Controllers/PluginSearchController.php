@@ -17,6 +17,6 @@ class PluginSearchController extends Controller
 
         $search = Plugin::search($request->input('query'));
 
-        return response()->json($search->paginate(3));
+        return response()->json($search->paginate(12));
     }
 }
