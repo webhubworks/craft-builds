@@ -29,9 +29,30 @@ export default {
         props: {
             classes: {
                 wrapper: 'border rounded shadow-sm bg-white border-gray-100',
-                body: 'p-4 lg:p-12',
+                body: 'p-4 sm:p-8 lg:p-12',
                 header: 'border-b border-gray-100 p-3 rounded-t',
                 footer: 'border-gray-100 border-t p-3 rounded-b',
+            },
+            variants: {
+                light: {
+                    wrapper: 'rounded shadow-sm bg-gray-100 text-black',
+                    body: 'p-4 sm:p-8 lg:p-12',
+                    header: 'border-b border-gray-100 p-3 rounded-t',
+                    footer: 'border-gray-100 border-t p-3 rounded-b',
+                },
+                dark: {
+                    wrapper: 'rounded shadow-sm bg-black text-white',
+                    body: 'p-4 sm:p-8 lg:p-12',
+                    header: 'border-b border-gray-100 p-3 rounded-t',
+                    footer: 'border-gray-100 border-t p-3 rounded-b',
+                },
+                primary: {
+                    wrapper: 'rounded shadow-sm bg-primary text-black',
+                    body: 'p-4 sm:p-8 lg:p-12',
+                    header: 'border-b border-gray-100 p-3 rounded-t',
+                    footer: 'border-gray-100 border-t p-3 rounded-b',
+                },
+
             }
         }
     },

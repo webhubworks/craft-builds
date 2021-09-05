@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <header class="container px-4 py-4 lg:py-8">
+    <div class="px-4 py-4 lg:py-8">
+        <header class="container">
             <div class="flex justify-between items-center">
                 <InertiaLink href="/">
                     <Logo></Logo>

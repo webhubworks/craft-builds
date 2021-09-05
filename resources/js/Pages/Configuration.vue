@@ -5,15 +5,15 @@
             <div class="space-y-4 px-4">
                 <t-card>
                     <div class="flex justify-between">
-                        <h1 class="mb-12 text-3xl font-medium">New build</h1>
+                        <h1 class="mb-12 lg:text-3xl font-medium">New build</h1>
                         <ConfigurationSettings
                             @currency-change="setCurrency"
                             @locale-change="setLocale"/>
                     </div>
 
                     <div v-if="configuration">
-                        <ul class="space-y-10 mb-10">
-                            <li v-for="plugin in configuration.plugins">
+                        <ul class="mb-10 divide-y divide-bg-400">
+                            <li class="py-8" v-for="plugin in configuration.plugins">
                                 <Plugin :plugin="plugin"
                                         @set-edition="setEditionOnPlugin"
                                         @remove="removePluginFromConfiguration"
@@ -22,7 +22,9 @@
                         </ul>
                     </div>
 
-                    <div class="flex space-x-2">
+                    <h3 class="mt-8">Add a plugin to the build</h3>
+
+                    <div class="flex space-x-2 print:hidden">
                         <t-rich-select v-model="pluginToAdd"
                                        class="flex-grow"
                                        value-attribute="handle"
@@ -57,27 +59,29 @@
                         <t-button @click.prevent="onAdd">Add</t-button>
                     </div>
 
+
                 </t-card>
 
-                <t-card>
-                    <h2 class="mb-6 text-2xl font-semibold">License fees</h2>
 
-                    <div class="space-y-4 grid grid-cols-2 w-full">
-                        <div class="space-y-1">
+                <t-card>
+                    <h2 class="mt-0">License fees</h2>
+
+                    <div class="grid grid-cols-2 w-full">
+                        <div class="mb-4">
                             <div class="flex items-center space-x-1">
                                 <label class="font-semibold text-sm text-gray-500">Initial</label>
                                 <Tooltip text="These fees are due once when you publish your project."></Tooltip>
                             </div>
-                            <p>{{ calculation.initial }}</p>
+                            <p class="text-xl font-bold mb-0">{{ calculation.initial }}</p>
                         </div>
 
-                        <div class="space-y-1">
+                        <div class="mb-4">
                             <div class="flex items-center space-x-1">
                                 <label class="font-semibold text-sm text-gray-500">Per renewal</label>
                                 <Tooltip
                                     text="These fees are due annually to ensure that you continue to receive updates. (one year after release at the earliest)"></Tooltip>
                             </div>
-                            <p>{{ calculation.renewal }}</p>
+                            <p class="text-xl font-bold mb-0">{{ calculation.renewal }}</p>
                         </div>
 
                         <div class="space-y-1">
@@ -101,6 +105,8 @@
             </div>
 
         </Base>
+
+        <BaseFooter></BaseFooter>
     </div>
 </template>
 
@@ -110,9 +116,10 @@ import Plugin from "../Components/Plugin";
 import ConfigurationSettings from "../Components/ConfigurationSettings";
 import Tooltip from "../Components/Tooltip";
 import ConfigurationHeader from "../Components/ConfigurationHeader";
+import BaseFooter from "../Components/BaseFooter";
 
 export default {
-    components: {ConfigurationHeader, Tooltip, ConfigurationSettings, Plugin, Base},
+    components: {BaseFooter, ConfigurationHeader, Tooltip, ConfigurationSettings, Plugin, Base},
 
     props: {
         configuration: Object,

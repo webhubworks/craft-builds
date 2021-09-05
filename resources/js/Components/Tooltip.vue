@@ -9,8 +9,8 @@
             </svg>
         </span>
         <template>
-            <div class="p-2 bg-blue-600 text-white">
-                {{ text }}
+            <div class="p-4 rounded bg-black text-white">
+                <p class="text-base mb-0">{{ text }}</p>
             </div>
         </template>
     </t-dropdown>

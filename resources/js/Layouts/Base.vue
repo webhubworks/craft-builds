@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="min-h-screen">
         <div class="container xl:max-w-6xl">
             <slot></slot>
         </div>
