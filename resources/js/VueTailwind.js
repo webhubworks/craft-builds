@@ -17,9 +17,17 @@ export default {
     't-rich-select': {
         component: TRichSelect,
         props: {
+
             variants: {
                 minimal: {
-                    selectButton: 'text-black transition duration-100 ease-in-out focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed mb-2'
+                    selectButton: 'text-black transition duration-100 ease-in-out focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed mb-2',
+                    dropdown: 'rounded shadow bg-white border-gray-300',
+                    selectedOption: 'bg-primary text-black',
+                    selectedHighlightedOption: 'bg-primary text-black',
+                    highlightedOption: 'bg-primary bg-opacity-25',
+                },
+                full: {
+                    highlightedOption: 'bg-primary bg-opacity-25',
                 }
             },
         }
@@ -28,27 +36,27 @@ export default {
         component: TCard,
         props: {
             classes: {
-                wrapper: 'border rounded shadow-sm bg-white border-gray-100',
-                body: 'p-4 sm:p-8 lg:p-12',
+                wrapper: 'border rounded shadow-sm bg-white border-gray-100 print:border-0 print:shadow-none',
+                body: 'p-4 sm:p-8 lg:p-12 print:p-0',
                 header: 'border-b border-gray-100 p-3 rounded-t',
                 footer: 'border-gray-100 border-t p-3 rounded-b',
             },
             variants: {
                 light: {
-                    wrapper: 'rounded shadow-sm bg-gray-100 text-black',
-                    body: 'p-4 sm:p-8 lg:p-12',
+                    wrapper: 'rounded shadow-sm bg-gray-100 text-black print:border-0 print:shadow-none',
+                    body: 'p-4 sm:p-8 lg:p-12 print:p-0',
                     header: 'border-b border-gray-100 p-3 rounded-t',
                     footer: 'border-gray-100 border-t p-3 rounded-b',
                 },
                 dark: {
-                    wrapper: 'rounded shadow-sm bg-black text-white',
-                    body: 'p-4 sm:p-8 lg:p-12',
+                    wrapper: 'rounded shadow-sm bg-black text-white print:border-0 print:shadow-none',
+                    body: 'p-4 sm:p-8 lg:p-12 print:p-0',
                     header: 'border-b border-gray-100 p-3 rounded-t',
                     footer: 'border-gray-100 border-t p-3 rounded-b',
                 },
                 primary: {
-                    wrapper: 'rounded shadow-sm bg-primary text-black',
-                    body: 'p-4 sm:p-8 lg:p-12',
+                    wrapper: 'rounded shadow-sm bg-primary text-black print:border-0 print:shadow-none',
+                    body: 'p-4 sm:p-8 lg:p-12 print:p-0',
                     header: 'border-b border-gray-100 p-3 rounded-t',
                     footer: 'border-gray-100 border-t p-3 rounded-b',
                 },
@@ -92,6 +100,9 @@ export default {
         props: {
             // classes: 'block w-full px-3 py-2 text-black placeholder-gray-400 transition duration-100 ease-in-out bg-white border border-gray-300 rounded shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed',
             // ...More settings
+            variants: {
+                big: 'border rounded shadow-sm border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none focus:ring-opacity-50 text-black placeholder-gray-400 bg-white border-gray-300 focus:border-blue-500 '
+            }
         }
     },
     't-button': {

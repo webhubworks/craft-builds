@@ -15,8 +15,12 @@ class PluginSearchController extends Controller
             'query' => 'required|min:2|max:50|string',
         ])->validate();
 
-        $search = Plugin::search($request->input('query'));
+        $search = Plugin::search($request->input('query'))->query(function ($builder) {
+            $builder->with('editions');
+        });
 
-        return response()->json($search->paginate(12));
+        return response()->json(
+            $search->paginate(12)
+        );
     }
 }

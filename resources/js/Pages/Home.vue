@@ -20,9 +20,12 @@
 
         <LandingPowerStrip></LandingPowerStrip>
 
+        <div class="container px-4" style="margin-top: -280px; padding-bottom: 280px">
+            <div class="bg-white max-w-lg p-8 mx-auto">Place for newsletter signup</div>
+        </div>
 
+        <LandingFooter></LandingFooter>
 
-        <BaseFooter></BaseFooter>
     </div>
 </template>
 
@@ -32,9 +35,10 @@ import LandingHeader from "../Components/LandingHeader";
 import BaseFooter from "../Components/BaseFooter";
 import LandingRectangles from "../Components/LandingRectangles";
 import LandingPowerStrip from "../Components/LandingPowerStrip";
+import LandingFooter from "../Components/LandingFooter";
 
 export default {
-    components: {LandingPowerStrip, LandingRectangles, BaseFooter, LandingHeader},
+    components: {LandingFooter, LandingPowerStrip, LandingRectangles, BaseFooter, LandingHeader},
     methods: {
         createNew() {
             this.$inertia.post(route('configuration.store'));
