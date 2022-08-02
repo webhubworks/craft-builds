@@ -1,9 +1,9 @@
 <template>
     <div class="static">
         <div class="fixed h-full w-full bg-black bg-opacity-75 top-0 bottom-0 z-10"
-             v-bind:class="[isActive ? 'block opacity-100 z-10' : 'hidden opacity-0 z-[-1]']"></div>
+             v-bind:class="[isActive ? 'block opacity-100 z-20' : 'hidden opacity-0 z-[-1]']"></div>
         <div class="lg:mt-[-180px]"
-             v-bind:class="[isActive ? 'z-20 relative' : 'z-[10] relative']">
+             v-bind:class="[isActive ? 'z-20 relative' : 'z-10 relative']">
             <svg viewBox="0 0 1415 1301" version="1.1" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" class="w-full h-auto z-[-1]">
                 <defs>

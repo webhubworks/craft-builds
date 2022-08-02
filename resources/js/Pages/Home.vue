@@ -4,8 +4,8 @@
 
         <LandingHeader></LandingHeader>
 
-        <div class="container min-h-[60vh] px-4">
-            <div class="flex items-center justify-between">
+        <div class="container px-4">
+            <div class="min-h-[50vh] flex items-center justify-between relative z-[15]">
                 <div class="mr-8 max-w-2xl w-full lg:w-3/5">
                     <h1 class="text-3xl sm:text-4xl lg:text-7xl mt-12 lg:mt-0 mb-6 lg:mb-12 font-medium">{{ $t('Resource calculation for the rest of us.') }}</h1>
                     <p class="text-2xl mb-8 lg:mb-20">
@@ -16,14 +16,16 @@
                     <LandingRectangles></LandingRectangles>
                 </div>
             </div>
-
         </div>
 
         <LandingPowerStrip></LandingPowerStrip>
 
+        <div class="container px-4" style="margin-top: -280px; padding-bottom: 280px">
+            <div class="bg-white max-w-lg p-8 mx-auto">Place for newsletter signup</div>
+        </div>
 
+        <LandingFooter></LandingFooter>
 
-        <BaseFooter></BaseFooter>
     </div>
 </template>
 
@@ -33,9 +35,10 @@ import LandingHeader from "../Components/LandingHeader";
 import BaseFooter from "../Components/BaseFooter";
 import LandingRectangles from "../Components/LandingRectangles";
 import LandingPowerStrip from "../Components/LandingPowerStrip";
+import LandingFooter from "../Components/LandingFooter";
 
 export default {
-    components: {LandingPowerStrip, LandingRectangles, BaseFooter, LandingHeader},
+    components: {LandingFooter, LandingPowerStrip, LandingRectangles, BaseFooter, LandingHeader},
     methods: {
         createNew() {
             this.$inertia.post(route('configuration.store'));

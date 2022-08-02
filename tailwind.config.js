@@ -18,10 +18,14 @@ module.exports = {
                 primary: '#F9FF00',
                 muted: '#EBEBEB'
             },
+            screens: {
+                print: {'raw': 'print'},
+            }
         },
         container: {
             center: true,
         },
+
     },
     variants: {
         extend: {
