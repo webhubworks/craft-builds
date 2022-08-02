@@ -483,7 +483,7 @@ export default {
     components: {LandingRectangles, BaseFooter, LandingHeader},
     methods: {
         createNew() {
-            this.$inertia.post(route('configuration.store'));
+            this.$inertia.post(route('build.store'));
         }
     }
 }

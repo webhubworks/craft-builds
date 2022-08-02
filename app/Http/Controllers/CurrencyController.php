@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Configuration;
+use App\Models\Build;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -11,15 +11,13 @@ use Validator;
 
 class CurrencyController extends Controller
 {
-    public function update(Request $request, Configuration $configuration): RedirectResponse
+    public function update(Request $request, Build $build): RedirectResponse
     {
         Validator::make($request->all(), [
             'currency' => ['required', 'string', Rule::in(config('money.currencies.iso'))],
         ]);
 
-        \Config::set();
-
-        return Redirect::route('configuration', ['configuration' => $configuration])
+        return Redirect::route('build', ['build' => $build])
             ->with([
                 'message' => __('Currency updated to ' . $request->currency),
             ]);

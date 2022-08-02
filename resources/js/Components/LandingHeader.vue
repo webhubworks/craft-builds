@@ -21,7 +21,7 @@ export default {
     components: {Logo},
     methods: {
         createNew() {
-            this.$inertia.post(route('configuration.store'));
+            this.$inertia.post(route('build.store'));
         }
     }
 }

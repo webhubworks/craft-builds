@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\ConfigurationController;
-use App\Http\Controllers\ConfigurationPluginController;
-use App\Http\Controllers\ConfigurationPluginEditionController;
+use App\Http\Controllers\BuildController;
+use App\Http\Controllers\BuildPluginController;
+use App\Http\Controllers\BuildPluginEditionController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\PluginSearchController;
 use App\Http\Controllers\StatsController;
@@ -19,28 +19,28 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 
     Route::prefix('/builds')->group(function () {
 
-        Route::post('/', [ConfigurationController::class, 'store'])
-            ->name('configuration.store');
+        Route::post('/', [BuildController::class, 'store'])
+            ->name('build.store');
 
-        Route::post('/{configuration:uuid}', [ConfigurationPluginController::class, 'store'])
-            ->name('configuration.add-plugin')
-            ->whereUuid('configuration');
+        Route::post('/{build:uuid}', [BuildPluginController::class, 'store'])
+            ->name('build.add-plugin')
+            ->whereUuid('build');
 
-        Route::get('/{configuration:uuid}/{currency?}', [ConfigurationController::class, 'show'])
-            ->name('configuration')
-            ->whereUuid('configuration');
+        Route::get('/{build:uuid}/{currency?}', [BuildController::class, 'show'])
+            ->name('build')
+            ->whereUuid('build');
 
-        Route::put('/{configuration:uuid}/currency', [CurrencyController::class, 'update'])
-            ->name('configuration.set-currency')
-            ->whereUuid('configuration');
+        Route::put('/{build:uuid}/currency', [CurrencyController::class, 'update'])
+            ->name('build.set-currency')
+            ->whereUuid('build');
 
-        Route::delete('/{configuration:uuid}/{plugin:handle}', [ConfigurationPluginController::class, 'destroy'])
-            ->name('configuration.remove-plugin')
-            ->whereUuid('configuration');
+        Route::delete('/{build:uuid}/{plugin:handle}', [BuildPluginController::class, 'destroy'])
+            ->name('build.remove-plugin')
+            ->whereUuid('build');
 
-        Route::put('/{configuration:uuid}/{plugin:handle}', [ConfigurationPluginEditionController::class, 'update'])
-            ->name('configuration.set-edition')
-            ->whereUuid('configuration');
+        Route::put('/{build:uuid}/{plugin:handle}', [BuildPluginEditionController::class, 'update'])
+            ->name('build.set-edition')
+            ->whereUuid('build');
 
     });
 });
@@ -48,7 +48,3 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 Route::get('/stats', [StatsController::class, 'index']);
 
 Route::get('/search', [PluginSearchController::class, '__invoke'])->name('search');
-
-Route::post('/lll', function() {
-
-});
