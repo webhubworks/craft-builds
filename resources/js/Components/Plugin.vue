@@ -81,7 +81,7 @@
         </div>
         <div class="flex justify-center">
             <t-button @click.prevent="$emit('remove', plugin.handle)"
-                      title="Remove plugin from configuration"
+                      title="Remove plugin from build"
                       class="text-2xl w-full text-gray-400 block opacity-25 group-hover:opacity-100 "
                       variant="secondary"
             >&times;

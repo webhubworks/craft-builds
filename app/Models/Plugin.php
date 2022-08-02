@@ -55,8 +55,8 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Plugin whereUpdatedAt($value)
  * @method static Builder|Plugin whereVersion($value)
  * @mixin Eloquent
- * @property-read Collection|Configuration[] $configurations
- * @property-read int|null $configurations_count
+ * @property-read Collection|Build[] $builds
+ * @property-read int|null $builds_count
  * @property-read Collection|\App\Models\Edition[] $editions
  * @property-read int|null $editions_count
  */
@@ -95,9 +95,9 @@ class Plugin extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function configurations(): BelongsToMany
+    public function builds(): BelongsToMany
     {
-        return $this->belongsToMany(Configuration::class);
+        return $this->belongsToMany(Build::class);
     }
 
     public function editions(): HasMany
