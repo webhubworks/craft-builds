@@ -20,6 +20,10 @@ module.exports = {
             },
             screens: {
                 print: {'raw': 'print'},
+            },
+            padding: {
+                '0.5': '0.125rem',
+                '2.5': '0.625rem',
             }
         },
         container: {

@@ -42,11 +42,11 @@
             <div class="py-1 rounded-md shadow-xs" slot-scope="{ hide, blurHandler }">
                 <button
                     class="block w-full px-4 py-2 leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 text-left"
-                    @click.prevent="currencyModalOpen = true">Change currency
+                    @click.prevent="currencyModalOpen = true" @mouseup="blurHandler">Change currency
                 </button>
                 <button
                     class="block w-full px-4 py-2 leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus:bg-gray-100 text-left"
-                    @click.prevent="localeModalOpen = true">Change locale
+                    @click.prevent="localeModalOpen = true" @mouseup="blurHandler">Change locale
                 </button>
             </div>
         </t-dropdown>
@@ -117,9 +117,11 @@ export default {
     methods: {
         onCurrencyChange(currency) {
             this.$emit('currency-change', currency);
+            this.currencyModalOpen = false;
         },
         onLocaleChange(locale) {
             this.$emit('locale-change', locale);
+            this.localeModalOpen = false;
         },
     }
 }
