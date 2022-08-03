@@ -33,7 +33,8 @@ class BuildController extends Controller
 
         return Inertia::render('Build', [
             'build' => $build,
-            'calculation' => BuildPricing::for($build),
+            'selectedPluginHandles' => $build->plugins->pluck('handle'),
+            'calculation' => BuildPricing::for($build)->locale(\App::getLocale())->calculate(),
             'currencies' => config('money.currencies.iso'),
             'selectedCurrency' => config('app.currency'),
             'locales' => config('laravellocalization.supportedLocales'),

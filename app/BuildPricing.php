@@ -19,6 +19,7 @@ class BuildPricing
     public string $biAnnualPerMonth;
     public string $triAnnual;
     public string $triAnnualPerMonth;
+    private ?string $locale = null;
 
     private function __construct(Build $build)
     {
@@ -28,8 +29,6 @@ class BuildPricing
         ]);
 
         $this->buildPlugins = $this->build->plugins->pluck('pivot');
-
-        $this->calculate();
     }
 
     public static function for(Build $build): static
@@ -37,7 +36,13 @@ class BuildPricing
         return new static($build);
     }
 
-    private function calculate()
+    public function locale(string $locale = null): static
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+    public function calculate(): static
     {
         $initial = Money::USD(
             $this->buildPlugins->reduce(function ($carry, BuildPlugin $item) {
@@ -59,11 +64,13 @@ class BuildPricing
 
         $triAnnualPerMonth = $triAnnual->divide(36);
 
-        $this->initial = \App\Facades\CurrencyConverter::convert($initial)->format();
-        $this->renewal = \App\Facades\CurrencyConverter::convert($renewal)->format();
-        $this->biAnnual = \App\Facades\CurrencyConverter::convert($biAnnual)->format();
-        $this->biAnnualPerMonth = \App\Facades\CurrencyConverter::convert($biAnnualPerMonth)->format();
-        $this->triAnnual = \App\Facades\CurrencyConverter::convert($triAnnual)->format();
-        $this->triAnnualPerMonth = \App\Facades\CurrencyConverter::convert($triAnnualPerMonth)->format();
+        $this->initial = \App\Facades\CurrencyConverter::convert($initial)->format($this->locale);
+        $this->renewal = \App\Facades\CurrencyConverter::convert($renewal)->format($this->locale);
+        $this->biAnnual = \App\Facades\CurrencyConverter::convert($biAnnual)->format($this->locale);
+        $this->biAnnualPerMonth = \App\Facades\CurrencyConverter::convert($biAnnualPerMonth)->format($this->locale);
+        $this->triAnnual = \App\Facades\CurrencyConverter::convert($triAnnual)->format($this->locale);
+        $this->triAnnualPerMonth = \App\Facades\CurrencyConverter::convert($triAnnualPerMonth)->format($this->locale);
+
+        return $this;
     }
 }

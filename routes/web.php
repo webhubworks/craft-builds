@@ -7,6 +7,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\PluginSearchController;
 use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -48,3 +49,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'l
 Route::get('/stats', [StatsController::class, 'index']);
 
 Route::get('/search', [PluginSearchController::class, '__invoke'])->name('search');
+
+Route::post('/switch-locale', function(\Illuminate\Http\Request $request) {
+    $request->validate([
+        'locale' => ['required', Rule::in(array_keys(config('laravellocalization.supportedLocales')))],
+        'url' => ['required'],
+    ]);
+    return redirect()->to(LaravelLocalization::getLocalizedURL($request->input('locale'), $request->input('url')));
+})->name('switch-locale');

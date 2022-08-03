@@ -83,7 +83,7 @@ class Edition extends Model
 
         return CurrencyConverter::convert(
             Money::USD($price)
-        )->format();
+        )->format(\App::getLocale());
     }
 
     public function getRawRenewalPriceAttribute($renewalPrice): ?int
@@ -99,6 +99,6 @@ class Edition extends Model
 
         return CurrencyConverter::convert(
             Money::USD($renewalPrice)
-        )->format();
+        )->format(\App::getLocale());
     }
 }

@@ -13,7 +13,7 @@ class CurrencyController extends Controller
 {
     public function update(Request $request, Build $build): RedirectResponse
     {
-        Validator::make($request->all(), [
+        $request->validate([
             'currency' => ['required', 'string', Rule::in(config('money.currencies.iso'))],
         ]);
 
