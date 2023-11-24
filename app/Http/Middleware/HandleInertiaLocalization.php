@@ -10,9 +10,6 @@ use Inertia\Inertia;
 
 class HandleInertiaLocalization
 {
-    /**
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next): Response
     {
         Inertia::share([
