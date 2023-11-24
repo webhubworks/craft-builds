@@ -25,7 +25,7 @@ class BuildPluginController extends Controller
 
         $build->plugins()->attach(
             $plugin, [
-                'edition_id' => optional($plugin->editions()->first())->id,
+                'edition_id' => $plugin->editions()->first()?->id,
             ]
         );
 
