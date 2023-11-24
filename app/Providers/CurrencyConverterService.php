@@ -12,7 +12,7 @@ class CurrencyConverterService extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('currency-converter', function ($app) {
             return new CurrencyConverter();
