@@ -38,9 +38,10 @@ class SyncFromPluginStore extends Command
     public function handle()
     {
         ray($this->option('force'));
-        if (!$this->option('force')) {
-            if (!$this->confirm('Make sure to have a queue worker already running or run it afterwards to rebuild search index. Proceed?')) {
+        if (! $this->option('force')) {
+            if (! $this->confirm('Make sure to have a queue worker already running or run it afterwards to rebuild search index. Proceed?')) {
                 $this->info('Aborting...');
+
                 return 1;
             }
         }
@@ -48,6 +49,7 @@ class SyncFromPluginStore extends Command
         $this->info('Syncing...');
         (new \App\Actions\SyncFromPluginStore())->sync();
         $this->info('Syncing done.');
+
         return 0;
     }
 }

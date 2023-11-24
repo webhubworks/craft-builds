@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
 
 /**
@@ -35,6 +34,7 @@ use Laravel\Scout\Searchable;
  * @property Carbon|null $updated_at
  * @property-read Collection|Category[] $categories
  * @property-read int|null $categories_count
+ *
  * @method static Builder|Plugin newModelQuery()
  * @method static Builder|Plugin newQuery()
  * @method static Builder|Plugin query()
@@ -54,7 +54,9 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Plugin whereSourceId($value)
  * @method static Builder|Plugin whereUpdatedAt($value)
  * @method static Builder|Plugin whereVersion($value)
+ *
  * @mixin Eloquent
+ *
  * @property-read Collection|Build[] $builds
  * @property-read int|null $builds_count
  * @property-read Collection|\App\Models\Edition[] $editions

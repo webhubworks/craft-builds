@@ -14,11 +14,17 @@ class BuildPricing
     private Collection $buildPlugins;
 
     public string $initial;
+
     public string $renewal;
+
     public string $biAnnual;
+
     public string $biAnnualPerMonth;
+
     public string $triAnnual;
+
     public string $triAnnualPerMonth;
+
     private ?string $locale = null;
 
     private function __construct(Build $build)
@@ -39,6 +45,7 @@ class BuildPricing
     public function locale(string $locale = null): static
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -46,13 +53,13 @@ class BuildPricing
     {
         $initial = Money::USD(
             $this->buildPlugins->reduce(function ($carry, BuildPlugin $item) {
-                return $carry + (int)$item->edition->raw_price;
+                return $carry + (int) $item->edition->raw_price;
             }, 0)
         );
 
         $renewal = Money::USD(
             $this->buildPlugins->reduce(function ($carry, BuildPlugin $item) {
-                return $carry + (int)$item->edition->raw_renewal_price;
+                return $carry + (int) $item->edition->raw_renewal_price;
             }, 0)
         );
 

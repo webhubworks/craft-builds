@@ -11,12 +11,6 @@ use Validator;
 
 class BuildPluginEditionController extends Controller
 {
-    /**
-     * @param Request $request
-     * @param Build $build
-     * @param Plugin $plugin
-     * @return RedirectResponse
-     */
     public function update(Request $request, Build $build, Plugin $plugin): RedirectResponse
     {
         Validator::make($request->all(), [
@@ -24,7 +18,7 @@ class BuildPluginEditionController extends Controller
         ]);
 
         if (! $plugin->editions()->whereId($request->edition)->exists()) {
-            throw new \Exception("Invalid edition");
+            throw new \Exception('Invalid edition');
         }
 
         $build->plugins()->detach($plugin);
@@ -37,7 +31,7 @@ class BuildPluginEditionController extends Controller
 
         return Redirect::route('build', ['build' => $build])
             ->with([
-                'message' => __('Edition set')
+                'message' => __('Edition set'),
             ]);
     }
 }

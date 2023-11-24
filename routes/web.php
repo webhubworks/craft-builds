@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [ 'localeSessionRedirect', 'localizationRedirect']], function () {
+Route::prefix(LaravelLocalization::setLocale())->middleware('localeSessionRedirect', 'localizationRedirect')->group(function () {
 
     Route::get('/', fn () => Inertia::render('Home'));
 
@@ -50,10 +50,11 @@ Route::get('/stats', [StatsController::class, 'index']);
 
 Route::get('/search', [PluginSearchController::class, '__invoke'])->name('search');
 
-Route::post('/switch-locale', function(\Illuminate\Http\Request $request) {
+Route::post('/switch-locale', function (Illuminate\Http\Request $request) {
     $request->validate([
         'locale' => ['required', Rule::in(array_keys(config('laravellocalization.supportedLocales')))],
         'url' => ['required'],
     ]);
+
     return redirect()->to(LaravelLocalization::getLocalizedURL($request->input('locale'), $request->input('url')));
 })->name('switch-locale');

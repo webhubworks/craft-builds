@@ -19,6 +19,7 @@ class StatsController extends Controller
                 $edition = Edition::with('plugin')
                     ->orderBy('price', 'desc')
                     ->first();
+
                 return [
                     'price' => $edition->price,
                     'name' => $edition->plugin->name,
@@ -27,6 +28,7 @@ class StatsController extends Controller
             'mostInstalls' => function () {
                 $plugin = Plugin::orderBy('active_installs', 'desc')
                     ->first();
+
                 return [
                     'count' => $plugin->active_installs,
                     'name' => $plugin->name,
@@ -39,8 +41,8 @@ class StatsController extends Controller
                             'x' => $plugins->count(),
                             'y' => $developer,
                         ];
-                    })->sortByDesc('count')->values()
-                ]]
+                    })->sortByDesc('count')->values(),
+                ]],
             ],
         ];
 

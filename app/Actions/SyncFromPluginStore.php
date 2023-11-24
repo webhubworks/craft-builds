@@ -10,16 +10,13 @@ use Cknow\Money\Money as CMoney;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Money\Currencies;
 use Money\Currency;
-use Money\Money;
 
 class SyncFromPluginStore
 {
     public function sync()
     {
-        $response = Cache::rememberForever('response', fn() => Http
-            ::get('https://api.craftcms.com/v1/plugin-store/')->json()
+        $response = Cache::rememberForever('response', fn () => Http::get('https://api.craftcms.com/v1/plugin-store/')->json()
         );
 
         $this->insertCraftAsPlugin();
@@ -76,7 +73,7 @@ class SyncFromPluginStore
 
     private function insertCategories(array $categories)
     {
-        collect($categories)->each(fn($category) => Category::updateOrCreate([
+        collect($categories)->each(fn ($category) => Category::updateOrCreate([
             'source_id' => $category['id'],
         ], [
             'title' => $category['title'],

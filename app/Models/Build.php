@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Money\Currency;
-use Ramsey\Uuid\Uuid;
 
 /**
  * App\Models\Build
@@ -18,6 +17,7 @@ use Ramsey\Uuid\Uuid;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Plugin[] $plugins
  * @property-read int|null $plugins_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Build newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Build newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Build query()
@@ -25,8 +25,11 @@ use Ramsey\Uuid\Uuid;
  * @method static \Illuminate\Database\Eloquent\Builder|Build whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Build whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Build whereUuid($value)
+ *
  * @mixin \Eloquent
+ *
  * @property Currency $currency
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Build whereCurrency($value)
  */
 class Build extends Model
