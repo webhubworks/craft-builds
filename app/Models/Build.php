@@ -40,7 +40,7 @@ class Build extends Model
             ->withPivot('edition_id');
     }
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
@@ -49,7 +49,7 @@ class Build extends Model
         });
     }
 
-    private static function addCraftAsPlugin(Build $build)
+    private static function addCraftAsPlugin(Build $build): void
     {
         $craftCms = Plugin::whereHandle('cms')->with('editions')->first();
         $build->plugins()->attach(

@@ -151,11 +151,15 @@ export default {
                 plugin: pluginHandle,
             }), {
                 edition: editionId,
+            }, {
+                preserveScroll: true,
             });
         },
         addPluginToBuild() {
             this.$inertia.post(route('build.add-plugin', this.build), {
                 handle: this.pluginToAdd,
+            }, {
+                preserveScroll: true,
             });
         },
         removePluginFromBuild(handle) {

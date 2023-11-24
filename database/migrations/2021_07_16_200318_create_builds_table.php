@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBuildsTable extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create('builds', function (Blueprint $table) {
             $table->id();
