@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Facade;
 use App\Providers\CurrencyConverterService;
+use Illuminate\Support\Facades\Facade;
 
 return [
 
