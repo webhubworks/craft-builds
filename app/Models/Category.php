@@ -15,7 +15,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static Builder|Category query()
+ *
  * @mixin Eloquent
+ *
  * @property int $id
  * @property int $source_id
  * @property string $title
@@ -24,6 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string $icon_url
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Category whereCreatedAt($value)
  * @method static Builder|Category whereDescription($value)
  * @method static Builder|Category whereIconUrl($value)
@@ -32,6 +35,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereSourceId($value)
  * @method static Builder|Category whereTitle($value)
  * @method static Builder|Category whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Plugin[] $plugins
  * @property-read int|null $plugins_count
  */

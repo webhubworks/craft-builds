@@ -16,7 +16,7 @@ use Inertia\Response;
 
 class BuildController extends Controller
 {
-    public function show(Request $request, string $uuid, ?string $currency = null): Response
+    public function show(Request $request, string $uuid, string $currency = null): Response
     {
         $currency = $currency ?? config('money.defaultCurrency');
         try {
@@ -27,7 +27,7 @@ class BuildController extends Controller
         Config::set('app.currency', $currency);
 
         $build = Build::whereUuid($uuid)
-            ->with(['plugins.editions',])
+            ->with(['plugins.editions'])
             ->firstOrFail();
 
         return Inertia::render('Build', [

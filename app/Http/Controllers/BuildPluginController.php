@@ -13,10 +13,6 @@ class BuildPluginController extends Controller
 {
     /**
      * Adds a plugin on a build.
-     *
-     * @param Request $request
-     * @param Build $build
-     * @return RedirectResponse
      */
     public function store(Request $request, Build $build): RedirectResponse
     {
@@ -35,17 +31,12 @@ class BuildPluginController extends Controller
 
         return Redirect::route('build', ['build' => $build])
             ->with([
-                'message' => __('Plugin added')
+                'message' => __('Plugin added'),
             ]);
     }
 
     /**
      * Removes a plugin on a build.
-     *
-     * @param Request $request
-     * @param Build $build
-     * @param Plugin $plugin
-     * @return RedirectResponse
      */
     public function destroy(Request $request, Build $build, Plugin $plugin): RedirectResponse
     {
@@ -54,7 +45,7 @@ class BuildPluginController extends Controller
 
         return Redirect::route('build', ['build' => $build])
             ->with([
-                'message' => __('Plugin removed')
+                'message' => __('Plugin removed'),
             ]);
     }
 }

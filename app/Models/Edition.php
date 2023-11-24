@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Money\Currency;
 
 /**
  * App\Models\Edition
@@ -25,6 +24,7 @@ use Money\Currency;
  * @property array|null $features
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder|Edition newModelQuery()
  * @method static Builder|Edition newQuery()
  * @method static Builder|Edition query()
@@ -38,7 +38,9 @@ use Money\Currency;
  * @method static Builder|Edition whereRenewalPrice($value)
  * @method static Builder|Edition whereSourceId($value)
  * @method static Builder|Edition whereUpdatedAt($value)
+ *
  * @mixin Eloquent
+ *
  * @property-read \App\Models\Plugin $plugin
  * @property-read int|null $raw_price
  * @property-read int|null $raw_renewal_price
@@ -77,7 +79,7 @@ class Edition extends Model
 
     public function getPriceAttribute($price): ?string
     {
-        if (!$price) {
+        if (! $price) {
             return null;
         }
 
@@ -93,7 +95,7 @@ class Edition extends Model
 
     public function getRenewalPriceAttribute($renewalPrice): ?string
     {
-        if (!$renewalPrice) {
+        if (! $renewalPrice) {
             return null;
         }
 

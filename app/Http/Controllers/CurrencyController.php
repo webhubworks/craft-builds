@@ -7,7 +7,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
-use Validator;
 
 class CurrencyController extends Controller
 {
@@ -19,7 +18,7 @@ class CurrencyController extends Controller
 
         return Redirect::route('build', ['build' => $build])
             ->with([
-                'message' => __('Currency updated to ' . $request->currency),
+                'message' => __('Currency updated to '.$request->currency),
             ]);
     }
 }
