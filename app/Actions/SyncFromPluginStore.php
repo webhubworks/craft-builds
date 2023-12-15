@@ -14,10 +14,9 @@ use Money\Currency;
 
 class SyncFromPluginStore
 {
-    public function sync()
+    public function sync(): void
     {
-        $response = Cache::rememberForever('response', fn () => Http::get('https://api.craftcms.com/v1/plugin-store/')->json()
-        );
+        $response = Cache::rememberForever('response', fn () => Http::get('https://api.craftcms.com/v1/plugin-store/')->json());
 
         $this->insertCraftAsPlugin();
 
@@ -28,7 +27,7 @@ class SyncFromPluginStore
         $this->insertEditions($response['plugins']);
     }
 
-    private function insertCraftAsPlugin()
+    private function insertCraftAsPlugin(): void
     {
         $craftPackagistInfo = Http::get('https://repo.packagist.org/p2/craftcms/cms.json');
 
@@ -71,7 +70,7 @@ class SyncFromPluginStore
         ]);
     }
 
-    private function insertCategories(array $categories)
+    private function insertCategories(array $categories): void
     {
         collect($categories)->each(fn ($category) => Category::updateOrCreate([
             'source_id' => $category['id'],
@@ -83,7 +82,7 @@ class SyncFromPluginStore
         ]));
     }
 
-    private function insertPlugins(array $plugins)
+    private function insertPlugins(array $plugins): void
     {
         collect($plugins)->each(function ($plugin) {
             /** @var Plugin $pluginModel */
@@ -110,7 +109,7 @@ class SyncFromPluginStore
         });
     }
 
-    private function insertEditions(array $plugins)
+    private function insertEditions(array $plugins): void
     {
         collect($plugins)->each(function ($plugin) {
             $pluginModel = Plugin::whereSourceId($plugin['id'])->firstOrFail();

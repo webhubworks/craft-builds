@@ -3,19 +3,16 @@
 namespace App\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Database\Eloquent\Model;
 
 class KeywordCast implements CastsAttributes
 {
     /**
      * Cast the given value.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
      * @return mixed
      */
-    public function get($model, $key, $value, $attributes)
+    public function get(Model $model, string $key, mixed $value, array $attributes)
     {
         if (is_null($value)) {
             return null;
@@ -27,13 +24,9 @@ class KeywordCast implements CastsAttributes
     /**
      * Prepare the given value for storage.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
      * @return mixed
      */
-    public function set($model, $key, $value, $attributes)
+    public function set(Model $model, string $key, mixed $value, array $attributes)
     {
         return is_array($value) ? implode('|', $value) : null;
     }

@@ -32,12 +32,9 @@ class SyncFromPluginStore extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        ray($this->option('force'));
         if (! $this->option('force')) {
             if (! $this->confirm('Make sure to have a queue worker already running or run it afterwards to rebuild search index. Proceed?')) {
                 $this->info('Aborting...');
